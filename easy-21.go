@@ -18,20 +18,22 @@ type ListNode struct {
 
 func main() {
 	fmt.Println("main")
-	data := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	data := []int{1,8, 11}
 	l := &ListNode{
 	}
 	for _, d := range data {
 		l.addNode(d)
 	}
-	l.display()
+	//l.display()
 
-	data2 := []int{10, 11, 12, 13, 14}
+	data2 := []int{6, 9, 10, 13, 14}
 	l2 := &ListNode{
 	}
 	for _, d := range data2 {
 		l2.addNode(d)
 	}
+	//l2.display()
+	mergeTwoLists(l, l2)
 	l2.display()
 }
 
@@ -56,15 +58,30 @@ func (l *ListNode) display() {
 }
 
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	l1 := l1.Next
-	l2 := l2.Next
-	for data1 := l1.Next {
-		for data2 := l2.Next {
-			if data1.Val <= data2.Val {
-				//
+	link1 := l1.Next
+	link2 := l2.Next
+	for link1 != nil {
+		isLastOne := true
+		for link2 != nil {
+			fmt.Printf("link2 val:%d\n",link2.Val)
+			if link1.Val < link2.Val {
+				node := &ListNode{
+					Val:  link1.Val,
+					Next: nil,
+				}
+				node.Next = link2.Next
+				link2 = node
+				isLastOne = false
 				break
 			}
+			link2 = link2.Next
 		}
+		if isLastOne {
+			link2 = link1
+		}
+		link1 = link1.Next
 	}
-	return nil
+	return link2
 }
+
+

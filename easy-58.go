@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"unicode"
 )
 
 func main() {
-	s := "hello world  dsf      sdf sfsd  "
+	s := "h"
 	len := lengthOfLastWord(s)
 	fmt.Printf("len:%d\n", len)
 }
@@ -15,15 +15,19 @@ func lengthOfLastWord(s string) int {
 	if len(s) == 0 {
 		return 0
 	}
-	arr := strings.Split(s, " ")
-	size := len(arr)
+	size := len(s)
+	isStart := false
+	wordSize := 0
 	for size > 0 {
-		w := strings.TrimSpace(arr[size-1])
-		wordSize := len(w)
-		if wordSize > 0 {
-			return wordSize
+		w := string(s[size-1])
+		if !unicode.IsSpace([]rune(w)[0]) {
+			isStart = true
+			wordSize++
+		}
+		if isStart && unicode.IsSpace([]rune(w)[0])  {
+			break
 		}
 		size--
 	}
-	return 0
+	return wordSize
 }
