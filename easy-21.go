@@ -17,7 +17,7 @@ type ListNode struct {
 }
 
 func main() {
-	fmt.Println("main")
+	//fmt.Println("main")
 	data := []int{1,8, 11}
 	l := &ListNode{
 	}
@@ -63,7 +63,7 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	for link1 != nil {
 		isLastOne := true
 		for link2 != nil {
-			fmt.Printf("link2 val:%d\n",link2.Val)
+			//fmt.Printf("link2 val:%d\n",link2.Val)
 			if link1.Val < link2.Val {
 				node := &ListNode{
 					Val:  link1.Val,
