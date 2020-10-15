@@ -43,6 +43,7 @@ func addNode(l *ListNode, val int) *ListNode {
 	return h
 }
 
+
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	p1 := head
 	p2 := head
