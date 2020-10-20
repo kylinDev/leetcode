@@ -8,9 +8,11 @@ func main() {
 	fmt.Println("main")
 	//nums1 = [1,2,3,0,0,0], m = 3
 	//nums2 = [2,5,6],       n = 3
-	nums1 := []int{1, 4, 9, 0, 0, 0}
-	nums2 := []int{2, 5, 6}
-	merge(nums1, 3, nums2, 3)
+	//merge(nums1, 3, nums2, 3)
+	nums1 := []int{0, 0}
+	nums2 := []int{0, 0}
+	nums := findMedianSortedArrays(nums1, nums2)
+	fmt.Printf("nums:%+v\n", nums)
 }
 
 func merge(nums1 []int, m int, nums2 []int, n int) {
@@ -36,3 +38,4 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 		}
 	}
 }
+
