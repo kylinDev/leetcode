@@ -22,22 +22,23 @@ type ListNode struct {
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	l1 = l1.Next
 	l2 = l2.Next
-	l3 := &ListNode{}
 	for l1 != nil && l2 != nil {
-		pluse := false
 		fmt.Printf("v1:%d,v2:%d\n", l1.Val, l2.Val)
 		l1 = l1.Next
 		l2 = l2.Next
-		if (l1.Val + l2.Val) > 9 {
-			pluse = true
-		} else {
-			sum := l1.Val + l2.Val
-			node := &ListNode{
-				l1.Val + l2.Val,
-			}
-		}
 	}
 	return nil
+}
+
+func reverseList(l *ListNode) *ListNode {
+	l = l.Next
+	for l != nil {
+		p := l.Next
+		p.Next = l
+		l.Next = p
+		l = l.Next
+	}
+	return l
 }
 
 func addReverseNode(val int, l *ListNode) *ListNode {
@@ -45,12 +46,7 @@ func addReverseNode(val int, l *ListNode) *ListNode {
 		Val:  val,
 		Next: nil,
 	}
-	l = l.Next
-	if l == nil {
-		l.Next = node
-		return l
-	}
-	node.Next = l
+	node.Next = l.Next
 	return node
 }
 
@@ -67,7 +63,6 @@ func addNode(val int, l *ListNode) *ListNode {
 }
 
 func display(l *ListNode) {
-	l = l.Next
 	for l != nil {
 		fmt.Printf("val:%d\n", l.Val)
 		l = l.Next
@@ -85,15 +80,17 @@ func main() {
 		fmt.Printf("i:%d\n", nums1[i])
 		l = addNode(nums1[i], l)
 	}
-	//display(l)
+	l = reverseList(l)
+	display(l)
 
 	for i := 0; i < len(nums2); i++ {
-		fmt.Printf("i:%d\n", nums2[i])
+		//	fmt.Printf("i:%d\n", nums2[i])
 		ll = addNode(nums2[i], ll)
 	}
 	//display(ll)
 	l2 := &ListNode{}
 	for i := 1; i < 5; i++ {
+		//fmt.Printf("insert:%d\n",i)
 		l2 = addReverseNode(i, l2)
 	}
 	display(l2)
