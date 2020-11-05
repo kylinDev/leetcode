@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	fmt.Printf("res:%d\n",1&0)
 	s := "9223372036854775808"
 	i, e := strconv.Atoi(s)
 	fmt.Printf("i:%+v,e:%+v\n", i, e)
