@@ -159,18 +159,18 @@ func MidOrderNR(node *Node) {
 	fmt.Printf("MidOrderNR result:%+v\n", result)
 }
 
-func endOrderRN(node *Node) {
+func endOrderRN(node *Node) []int {
+	var result []int
 	var stackOne []*Node
 	var stackTwo []*Node
 	if node == nil {
-		return
+		return result
 	}
 	stackOne = append(stackOne, node)
 	for len(stackOne) > 0 {
 		size := len(stackOne)
 		n := stackOne[size-1]
 		stackOne = stackOne[0 : size-1]
-		fmt.Printf("enter stack2  n=%d,n->left:%d,n->right:%d\n",n.Value,n.Left,n.Right)
 		stackTwo = append(stackTwo, n)
 		if n.Left != nil {
 			stackOne = append(stackOne, n.Left)
@@ -179,14 +179,13 @@ func endOrderRN(node *Node) {
 			stackOne = append(stackOne, n.Right)
 		}
 	}
-	var result []int
 	for len(stackTwo) > 0 {
 		size := len(stackTwo)
 		n := stackTwo[size-1]
 		stackTwo = stackTwo[0 : size-1]
 		result = append(result, n.Value)
 	}
-	fmt.Printf("endOrderRN result:%+v\n", result)
+	return result
 }
 
 func isValidBST(root *TreeNode) bool {
