@@ -121,6 +121,7 @@ func preOrderNR(node *Node) []int {
 		stack = stack[0 : size-1]
 		result = append(result, curNode.Value)
 		// 栈是先进后出，所以右节点先入栈
+		// 前序:根左右
 		if curNode.Right != nil {
 			stack = append(stack, curNode.Right)
 		}
