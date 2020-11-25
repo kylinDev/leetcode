@@ -10,6 +10,7 @@ type ListNode struct {
 }
 
 func main() {
+
 	l := initList()
 	addNode(1, l)
 	//addNode(2, l)
