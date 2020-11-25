@@ -67,6 +67,8 @@ func main() {
 }
 
 
+
+
 func showDoubleList(l *ListNode) {
 	for l != nil {
 		fmt.Printf("curr node val:%d\n",l.Val)
@@ -83,7 +85,6 @@ func showDoubleList(l *ListNode) {
 		l = l.Next
 	}
 }
-
 
 
 

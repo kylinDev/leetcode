@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	_ "os"
 )
 
 type ListNode struct {
@@ -9,12 +10,15 @@ type ListNode struct {
 	Next *ListNode
 }
 
-
 func addNode(val int, l *ListNode) *ListNode {
 	l1 := l
 	node := &ListNode{
 		Val:  val,
 		Next: nil,
+	}
+	if l == nil {
+		l = node
+		return l
 	}
 	for l.Next != nil {
 		l = l.Next
@@ -24,18 +28,19 @@ func addNode(val int, l *ListNode) *ListNode {
 }
 
 func display(l *ListNode) {
-	l = l.Next
 	for l != nil {
-		fmt.Printf("val:%d\n", l.Val)
+		fmt.Printf("display val:%d\n", l.Val)
 		l = l.Next
 	}
 }
 
 func main() {
-	l := &ListNode{}
-	for i := 0; i < 5; i++ {
+	var l *ListNode
+	for i := 1; i < 6; i++ {
+		fmt.Printf("insert val:%d\n", i)
 		l = addNode(i, l)
 	}
+	l = swapPairs(l)
 	display(l)
 }
 
@@ -47,7 +52,25 @@ func main() {
  * }
  */
 func swapPairs(head *ListNode) *ListNode {
-	l := head.Next
-
-	return nil
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var q *ListNode
+	p := head.Next
+	for head.Next != nil {
+		next := (head.Next).Next // 第三节点
+		if next == nil {
+			(head.Next).Next = head
+			if q != nil {
+				q.Next = head.Next
+			}
+			head.Next = nil
+			break
+		}
+		(head.Next).Next = head  // 第二节点连接第一节点
+		head.Next = next         // 第一节点连接第三节点
+		q = head
+		head = next // 指针滑动到交换后第三节点
+	}
+	return p
 }
