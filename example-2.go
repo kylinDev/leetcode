@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"strconv"
+	"strings"
 )
 
 /**
@@ -19,26 +22,51 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	l1 = l1.Next
-	l2 = l2.Next
-	for l1 != nil && l2 != nil {
-		fmt.Printf("v1:%d,v2:%d\n", l1.Val, l2.Val)
-		l1 = l1.Next
-		l2 = l2.Next
+func pow(n int) int {
+	if n == 0 {
+		return 1
 	}
-	return nil
+	return int(math.Pow10(n))
 }
 
-func reverseList(l *ListNode) *ListNode {
-	l = l.Next
-	for l != nil {
-		p := l.Next
-		p.Next = l
-		l.Next = p
-		l = l.Next
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	var sum1, sum2 int
+	n := 0
+	for l1 != nil {
+		fmt.Printf("sum2:%d,v:%d\n", pow(n), l1.Val)
+		sum1 += pow(n) * l1.Val
+		n++
+		l1 = l1.Next
 	}
-	return l
+	fmt.Printf("sum1:%d\n", sum1)
+	m := 0
+	for l2 != nil {
+		fmt.Printf("sum2:%d,v:%d\n", pow(m), l2.Val)
+		sum2 += pow(m) * l2.Val
+		m++
+		l2 = l2.Next
+	}
+	fmt.Printf("sum2:%d\n", sum2)
+	sum := sum1 + sum2
+	s := strings.Split(strconv.Itoa(sum), "")
+	var l3 *ListNode
+	for i := 0; i < len(s); i++ {
+		v, _ := strconv.Atoi(s[i])
+		l3 = reverseList(v, l3)
+	}
+	return l3
+}
+
+func reverseList(val int, l *ListNode) *ListNode {
+	n := &ListNode{
+		Val: val,
+	}
+	if l == nil {
+		l = n
+		return l
+	}
+	n.Next = l
+	return n
 }
 
 func addReverseNode(val int, l *ListNode) *ListNode {
@@ -51,10 +79,14 @@ func addReverseNode(val int, l *ListNode) *ListNode {
 }
 
 func addNode(val int, l *ListNode) *ListNode {
-	h := l
 	node := &ListNode{
 		Val: val,
 	}
+	if l == nil {
+		l = node
+		return l
+	}
+	h := l
 	for l.Next != nil {
 		l = l.Next
 	}
@@ -70,29 +102,20 @@ func display(l *ListNode) {
 }
 
 func main() {
-	l := &ListNode{
-	}
-	ll := &ListNode{
-	}
+	var l *ListNode
+	var l2 *ListNode
 	nums1 := []int{2, 4, 3}
-	nums2 := []int{5, 6, 4}
 	for i := 0; i < len(nums1); i++ {
-		fmt.Printf("i:%d\n", nums1[i])
 		l = addNode(nums1[i], l)
 	}
-	l = reverseList(l)
-	display(l)
+	//display(l)
 
+	nums2 := []int{5, 6, 4}
 	for i := 0; i < len(nums2); i++ {
-		//	fmt.Printf("i:%d\n", nums2[i])
-		ll = addNode(nums2[i], ll)
+		l2 = addNode(nums2[i], l2)
 	}
-	//display(ll)
-	l2 := &ListNode{}
-	for i := 1; i < 5; i++ {
-		//fmt.Printf("insert:%d\n",i)
-		l2 = addReverseNode(i, l2)
-	}
-	display(l2)
+	//display(l2)
+	l3 := addTwoNumbers(l, l2)
+	display(l3)
 	//addTwoNumbers(l, ll)
 }
