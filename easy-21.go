@@ -18,69 +18,80 @@ type ListNode struct {
 
 func main() {
 	//fmt.Println("main")
+
+
 	data := []int{1, 7, 19}
-	l := &ListNode{
-	}
+	var l *ListNode
 	for _, d := range data {
-		l.addNode(d)
+		l = addNode(d, l)
 	}
-	//l.display()
+	//display(l)
 
-	data2 := []int{6, 9, 10, 13, 14}
-	l2 := &ListNode{
-	}
+	data2 := []int{2, 3, 4}
+	var l2 *ListNode
 	for _, d := range data2 {
-		l2.addNode(d)
+		l2 = addNode(d, l2)
 	}
-	//l2.display()
-	mergeLink := mergeTwoLists(l, l2)
+	//display(l2)
 
-	for mergeLink != nil {
-		fmt.Printf("mergeLink val:%d\n", mergeLink.Val)
-		mergeLink = mergeLink.Next
-	}
+	l3 := mergeTwoLists(l,l2)
+
+	display(l3)
 }
 
-func (l *ListNode) addNode(val int) {
-	n := l
+func addNode(val int, l *ListNode) *ListNode {
 	node := &ListNode{
-		Val:  val,
-		Next: nil,
+		Val: val,
 	}
-	for n.Next != nil {
-		n = n.Next
+	if l == nil {
+		l = node
+		return l
 	}
-	n.Next = node
+	var head *ListNode
+	head = l
+	for l.Next != nil {
+		l = l.Next
+	}
+	l.Next = node
+	return head
 }
 
-func (l *ListNode) display() {
-	data := l.Next
-	for data != nil {
-		fmt.Printf("val:%d\n", data.Val)
-		data = data.Next
+func display(l *ListNode) {
+	for l != nil {
+		fmt.Printf("val:%d\n", l.Val)
+		l = l.Next
 	}
 }
 
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	link1 := l1
-	link2 := l2
-	link3 := l2
-	for link1.Next != nil {
-		for link2.Next != nil {
-			if link1.Val < link2.Val {
-				fmt.Printf("insert %d before %d\n", link1.Val, link2.Val)
-				node := &ListNode{
-					Val:  link1.Val,
-					Next: nil,
-				}
-				node.Next = link2
-				link2 = node
-				break
-			}
-			link2 = link2.Next
-		}
-		fmt.Printf("l1 val:%d\n", link1.Val)
-		link1 = link1.Next
+	if l1 == nil {
+		return l2
 	}
-	return link3
+	if l2 == nil {
+		return l1
+	}
+	var head *ListNode
+	if l1.Val <= l2.Val {
+		head = l1
+	}else{
+		head = l2
+	}
+
+	for l1 != nil {
+		for l2 != nil {
+			n := &ListNode{
+				Val: l1.Val,
+			}
+			if l1.Val >= l2.Val {
+				l2.Next = n
+				n.Next = l2
+			}else{
+				n.Next = l2
+			}
+			l1 = l1.Next
+			break
+		}
+	}
+
+	return head
 }
